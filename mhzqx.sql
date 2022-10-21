@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
--- 主机:                           127.0.0.1
--- 服务器版本:                        5.6.26 - MySQL Community Server (GPL)
--- 服务器操作系统:                      Win32
--- HeidiSQL 版本:                  9.4.0.5125
+-- ホスト:                          127.0.0.1
+-- サーバーのバージョン:                   5.7.21-log - MySQL Community Server (GPL)
+-- サーバー OS:                      Win64
+-- HeidiSQL バージョン:               11.0.0.5919
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -12,11 +12,13 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- 导出 mhzqx 的数据库结构
+-- mhzqx のデータベース構造をダンプしています
+DROP DATABASE IF EXISTS `mhzqx`;
 CREATE DATABASE IF NOT EXISTS `mhzqx` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
 USE `mhzqx`;
 
--- 导出  表 mhzqx.cusorders 结构
+--  テーブル mhzqx.cusorders の構造をダンプしています
+DROP TABLE IF EXISTS `cusorders`;
 CREATE TABLE IF NOT EXISTS `cusorders` (
   `ORDERID` varchar(50) COLLATE utf8_bin NOT NULL,
   `CUSID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -27,15 +29,19 @@ CREATE TABLE IF NOT EXISTS `cusorders` (
   PRIMARY KEY (`ORDERNUM`),
   KEY `FK_Relationship_5` (`CUSID`),
   CONSTRAINT `FK_Relationship_5` FOREIGN KEY (`CUSID`) REFERENCES `customer` (`CUSID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.cusorders 的数据：~2 rows (大约)
+-- テーブル mhzqx.cusorders: ~3 rows (約) のデータをダンプしています
+DELETE FROM `cusorders`;
 /*!40000 ALTER TABLE `cusorders` DISABLE KEYS */;
 INSERT INTO `cusorders` (`ORDERID`, `CUSID`, `ORDERTIME`, `ORDERSTATE`, `ORDERTOTLEPRICE`, `ORDERNUM`) VALUES
-	('0ca880f0-98ab-11e9-bbf5-5be13d8682cd', 'ca1f0540-5659-4809-8708-0be47bf33f18', 26, 1, 186.00, 0000000014);
+	('c07dd2b0-4ab9-11ed-b8cd-31939cfd9b25', 'b6da6bb4-0711-4525-a27e-36feccd408b2', 13, 1, 85.00, 0000000016),
+	('047dd850-4b70-11ed-b8cd-31939cfd9b25', 'b6da6bb4-0711-4525-a27e-36feccd408b2', 5, 1, 30.00, 0000000017),
+	('41b31870-4b70-11ed-b8cd-31939cfd9b25', 'b6da6bb4-0711-4525-a27e-36feccd408b2', 4, 1, 5.00, 0000000018);
 /*!40000 ALTER TABLE `cusorders` ENABLE KEYS */;
 
--- 导出  表 mhzqx.customer 结构
+--  テーブル mhzqx.customer の構造をダンプしています
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `CUSID` varchar(50) COLLATE utf8_bin NOT NULL,
   `OPENID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -43,13 +49,16 @@ CREATE TABLE IF NOT EXISTS `customer` (
   PRIMARY KEY (`CUSID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.customer 的数据：~1 rows (大约)
+-- テーブル mhzqx.customer: ~0 rows (約) のデータをダンプしています
+DELETE FROM `customer`;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` (`CUSID`, `OPENID`, `NICKNAME`) VALUES
+	('b6da6bb4-0711-4525-a27e-36feccd408b2', 'oKNSl5eR2BorwrGgvPjGD50A9W4Q', '董明'),
 	('ca1f0540-5659-4809-8708-0be47bf33f18', 'otfCH5OCSsiM1k_-7Lwy4puUBuYE', '飙');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
--- 导出  表 mhzqx.goods 结构
+--  テーブル mhzqx.goods の構造をダンプしています
+DROP TABLE IF EXISTS `goods`;
 CREATE TABLE IF NOT EXISTS `goods` (
   `GID` varchar(50) COLLATE utf8_bin NOT NULL,
   `GTID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -66,7 +75,8 @@ CREATE TABLE IF NOT EXISTS `goods` (
   CONSTRAINT `FK_Relationship_4` FOREIGN KEY (`GTID`) REFERENCES `goodstype` (`GTID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.goods 的数据：~6 rows (大约)
+-- テーブル mhzqx.goods: ~6 rows (約) のデータをダンプしています
+DELETE FROM `goods`;
 /*!40000 ALTER TABLE `goods` DISABLE KEYS */;
 INSERT INTO `goods` (`GID`, `GTID`, `GNAME`, `GPRICE`, `GSTATE`, `GCONTENT`, `GIMG`, `GTIME`, `GCOUNT`, `GINFO`) VALUES
 	('3018da52-6fa4-4ad8-8412-98333a1bc1f4', '2', '樱桃', 30.00, 1, '夏季供应', 'wxc7f540d89f35da73.o6zAJs7hq-Iyd7O4lOvl11LFDr6c.eAm2jjPDykQt3f7e6451e277c5c73f6f7f3ddf66433b.jpg', 5, 0, '好吃不贵'),
@@ -77,7 +87,8 @@ INSERT INTO `goods` (`GID`, `GTID`, `GNAME`, `GPRICE`, `GSTATE`, `GCONTENT`, `GI
 	('d5646197-83c5-459e-85f9-f69e4207e52a', '3', '布丁', 38.00, 1, '周一至周六供应', 'food2.png', 5, 0, '这是一份儿非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非');
 /*!40000 ALTER TABLE `goods` ENABLE KEYS */;
 
--- 导出  表 mhzqx.goodstype 结构
+--  テーブル mhzqx.goodstype の構造をダンプしています
+DROP TABLE IF EXISTS `goodstype`;
 CREATE TABLE IF NOT EXISTS `goodstype` (
   `GTID` varchar(50) COLLATE utf8_bin NOT NULL,
   `GTNAME` varchar(30) COLLATE utf8_bin DEFAULT NULL,
@@ -85,15 +96,17 @@ CREATE TABLE IF NOT EXISTS `goodstype` (
   PRIMARY KEY (`GTID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.goodstype 的数据：~4 rows (大约)
+-- テーブル mhzqx.goodstype: ~3 rows (約) のデータをダンプしています
+DELETE FROM `goodstype`;
 /*!40000 ALTER TABLE `goodstype` DISABLE KEYS */;
 INSERT INTO `goodstype` (`GTID`, `GTNAME`, `GTSTATE`) VALUES
-	('1', '主食', 1),
-	('2', '水果', 1),
-	('3', '甜点', 1);
+	('1', '牛肉', 1),
+	('2', '羊肉', 1),
+	('3', '其他', 1);
 /*!40000 ALTER TABLE `goodstype` ENABLE KEYS */;
 
--- 导出  表 mhzqx.orderdetail 结构
+--  テーブル mhzqx.orderdetail の構造をダンプしています
+DROP TABLE IF EXISTS `orderdetail`;
 CREATE TABLE IF NOT EXISTS `orderdetail` (
   `GID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   `ORDERID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -106,7 +119,8 @@ CREATE TABLE IF NOT EXISTS `orderdetail` (
   CONSTRAINT `FK_Relationship_7` FOREIGN KEY (`GID`) REFERENCES `goods` (`GID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.orderdetail 的数据：~12 rows (大约)
+-- テーブル mhzqx.orderdetail: ~19 rows (約) のデータをダンプしています
+DELETE FROM `orderdetail`;
 /*!40000 ALTER TABLE `orderdetail` DISABLE KEYS */;
 INSERT INTO `orderdetail` (`GID`, `ORDERID`, `GNAME`, `GCOUNT`, `GPRICE`, `GTIME`) VALUES
 	('58d9a28f-8746-492b-9f25-bcbe440ed636', 'ef137ef0-9887-11e9-9960-e90128ae1bef', '山竹', 11.00, '20', 10),
@@ -121,10 +135,17 @@ INSERT INTO `orderdetail` (`GID`, `ORDERID`, `GNAME`, `GCOUNT`, `GPRICE`, `GTIME
 	('89e8ec77-8820-48c1-9d4e-f001f093ff93', 'ef7f8ec0-98a9-11e9-a2b1-cf87d44fe9f7', '饭团', 2.00, '5', 4),
 	('89e8ec77-8820-48c1-9d4e-f001f093ff93', '0ca880f0-98ab-11e9-bbf5-5be13d8682cd', '饭团', 2.00, '5', 4),
 	('4b9363b7-a4f8-4329-8024-b53386cf4ddc', '0ca880f0-98ab-11e9-bbf5-5be13d8682cd', '咖啡\r\n', 2.00, '50', 4),
-	('d5646197-83c5-459e-85f9-f69e4207e52a', '0ca880f0-98ab-11e9-bbf5-5be13d8682cd', '布丁', 2.00, '38', 5);
+	('d5646197-83c5-459e-85f9-f69e4207e52a', '0ca880f0-98ab-11e9-bbf5-5be13d8682cd', '布丁', 2.00, '38', 5),
+	('89e8ec77-8820-48c1-9d4e-f001f093ff93', 'f2c8d490-4ab4-11ed-b8cd-31939cfd9b25', '饭团', 1.00, '5', 4),
+	('89e8ec77-8820-48c1-9d4e-f001f093ff93', 'c07dd2b0-4ab9-11ed-b8cd-31939cfd9b25', '饭团', 1.00, '5', 4),
+	('3018da52-6fa4-4ad8-8412-98333a1bc1f4', 'c07dd2b0-4ab9-11ed-b8cd-31939cfd9b25', '樱桃', 1.00, '30', 5),
+	('4b9363b7-a4f8-4329-8024-b53386cf4ddc', 'c07dd2b0-4ab9-11ed-b8cd-31939cfd9b25', '咖啡\r\n', 1.00, '50', 4),
+	('3018da52-6fa4-4ad8-8412-98333a1bc1f4', '047dd850-4b70-11ed-b8cd-31939cfd9b25', '樱桃', 1.00, '30', 5),
+	('89e8ec77-8820-48c1-9d4e-f001f093ff93', '41b31870-4b70-11ed-b8cd-31939cfd9b25', '饭团', 1.00, '5', 4);
 /*!40000 ALTER TABLE `orderdetail` ENABLE KEYS */;
 
--- 导出  表 mhzqx.overorder 结构
+--  テーブル mhzqx.overorder の構造をダンプしています
+DROP TABLE IF EXISTS `overorder`;
 CREATE TABLE IF NOT EXISTS `overorder` (
   `ORDERID` varchar(50) COLLATE utf8_bin NOT NULL,
   `CUSID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -133,19 +154,22 @@ CREATE TABLE IF NOT EXISTS `overorder` (
   `ORDERTOTLEPRICE` decimal(10,2) DEFAULT NULL,
   `ORDERNUM` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`ORDERNUM`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.overorder 的数据：~4 rows (大约)
+-- テーブル mhzqx.overorder: ~5 rows (約) のデータをダンプしています
+DELETE FROM `overorder`;
 /*!40000 ALTER TABLE `overorder` DISABLE KEYS */;
 INSERT INTO `overorder` (`ORDERID`, `CUSID`, `ORDERTIME`, `ORDERSTATE`, `ORDERTOTLEPRICE`, `ORDERNUM`) VALUES
 	('ef137ef0-9887-11e9-9960-e90128ae1bef', 'ca1f0540-5659-4809-8708-0be47bf33f18', 110, 3, 220.00, 0000000003),
 	('f855cbd0-9887-11e9-9960-e90128ae1bef', 'ca1f0540-5659-4809-8708-0be47bf33f18', 57, 3, 178.00, 0000000004),
 	('0894df60-98a9-11e9-acc3-f7241ce36425', 'ca1f0540-5659-4809-8708-0be47bf33f18', 16, 3, 20.00, 0000000005),
 	('12c6bc60-98a9-11e9-acc3-f7241ce36425', 'ca1f0540-5659-4809-8708-0be47bf33f18', 36, 3, 60.00, 0000000006),
-	('ef7f8ec0-98a9-11e9-a2b1-cf87d44fe9f7', 'ca1f0540-5659-4809-8708-0be47bf33f18', 8, 3, 10.00, 0000000007);
+	('ef7f8ec0-98a9-11e9-a2b1-cf87d44fe9f7', 'ca1f0540-5659-4809-8708-0be47bf33f18', 8, 3, 10.00, 0000000007),
+	('0ca880f0-98ab-11e9-bbf5-5be13d8682cd', 'ca1f0540-5659-4809-8708-0be47bf33f18', 26, 3, 186.00, 0000000008);
 /*!40000 ALTER TABLE `overorder` ENABLE KEYS */;
 
--- 导出  表 mhzqx.roleright 结构
+--  テーブル mhzqx.roleright の構造をダンプしています
+DROP TABLE IF EXISTS `roleright`;
 CREATE TABLE IF NOT EXISTS `roleright` (
   `RRID` varchar(50) COLLATE utf8_bin NOT NULL,
   `ROLEID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -157,11 +181,13 @@ CREATE TABLE IF NOT EXISTS `roleright` (
   CONSTRAINT `FK_Relationship_2` FOREIGN KEY (`FUNID`) REFERENCES `sysfunction` (`FUNID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.roleright 的数据：~0 rows (大约)
+-- テーブル mhzqx.roleright: ~0 rows (約) のデータをダンプしています
+DELETE FROM `roleright`;
 /*!40000 ALTER TABLE `roleright` DISABLE KEYS */;
 /*!40000 ALTER TABLE `roleright` ENABLE KEYS */;
 
--- 导出  表 mhzqx.syscus 结构
+--  テーブル mhzqx.syscus の構造をダンプしています
+DROP TABLE IF EXISTS `syscus`;
 CREATE TABLE IF NOT EXISTS `syscus` (
   `CUSID` varchar(50) COLLATE utf8_bin NOT NULL,
   `NICKNAME` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -169,13 +195,15 @@ CREATE TABLE IF NOT EXISTS `syscus` (
   PRIMARY KEY (`CUSID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.syscus 的数据：~1 rows (大约)
+-- テーブル mhzqx.syscus: ~0 rows (約) のデータをダンプしています
+DELETE FROM `syscus`;
 /*!40000 ALTER TABLE `syscus` DISABLE KEYS */;
 INSERT INTO `syscus` (`CUSID`, `NICKNAME`, `LIMITS`) VALUES
-	('ca1f0540-5659-4809-8708-0be47bf33f18', '飙', 'true');
+	('b6da6bb4-0711-4525-a27e-36feccd408b2', '董明', 'true');
 /*!40000 ALTER TABLE `syscus` ENABLE KEYS */;
 
--- 导出  表 mhzqx.sysfunction 结构
+--  テーブル mhzqx.sysfunction の構造をダンプしています
+DROP TABLE IF EXISTS `sysfunction`;
 CREATE TABLE IF NOT EXISTS `sysfunction` (
   `FUNID` varchar(50) COLLATE utf8_bin NOT NULL,
   `FUNNAME` varchar(30) COLLATE utf8_bin DEFAULT NULL,
@@ -185,11 +213,13 @@ CREATE TABLE IF NOT EXISTS `sysfunction` (
   PRIMARY KEY (`FUNID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.sysfunction 的数据：~0 rows (大约)
+-- テーブル mhzqx.sysfunction: ~0 rows (約) のデータをダンプしています
+DELETE FROM `sysfunction`;
 /*!40000 ALTER TABLE `sysfunction` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sysfunction` ENABLE KEYS */;
 
--- 导出  表 mhzqx.sysrole 结构
+--  テーブル mhzqx.sysrole の構造をダンプしています
+DROP TABLE IF EXISTS `sysrole`;
 CREATE TABLE IF NOT EXISTS `sysrole` (
   `ROLEID` varchar(50) COLLATE utf8_bin NOT NULL,
   `ROLENAME` varchar(20) COLLATE utf8_bin DEFAULT NULL,
@@ -197,11 +227,13 @@ CREATE TABLE IF NOT EXISTS `sysrole` (
   PRIMARY KEY (`ROLEID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.sysrole 的数据：~0 rows (大约)
+-- テーブル mhzqx.sysrole: ~0 rows (約) のデータをダンプしています
+DELETE FROM `sysrole`;
 /*!40000 ALTER TABLE `sysrole` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sysrole` ENABLE KEYS */;
 
--- 导出  表 mhzqx.sysuser 结构
+--  テーブル mhzqx.sysuser の構造をダンプしています
+DROP TABLE IF EXISTS `sysuser`;
 CREATE TABLE IF NOT EXISTS `sysuser` (
   `USERID` varchar(50) COLLATE utf8_bin NOT NULL,
   `ROLEID` varchar(50) COLLATE utf8_bin DEFAULT NULL,
@@ -215,7 +247,8 @@ CREATE TABLE IF NOT EXISTS `sysuser` (
   CONSTRAINT `FK_Relationship_3` FOREIGN KEY (`ROLEID`) REFERENCES `sysrole` (`ROLEID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
--- 正在导出表  mhzqx.sysuser 的数据：~0 rows (大约)
+-- テーブル mhzqx.sysuser: ~0 rows (約) のデータをダンプしています
+DELETE FROM `sysuser`;
 /*!40000 ALTER TABLE `sysuser` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sysuser` ENABLE KEYS */;
 
